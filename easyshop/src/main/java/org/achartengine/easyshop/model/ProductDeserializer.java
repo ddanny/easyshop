@@ -24,7 +24,7 @@ public class ProductDeserializer extends StdDeserializer<Product> {
     @Override
     public Product deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         JsonNode node = parser.getCodec().readTree(parser);
-        double price = (Double) ((DoubleNode) node.get("price")).numberValue();
+        double price = node.get("price").asDouble();
         String name = node.get("name").asText();
         return new Product(counter.incrementAndGet(), name, price);
     }

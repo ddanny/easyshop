@@ -15,7 +15,7 @@ public class Order {
     private final String buyerEmail;
 
     private final long time;
-
+    
     public Order(long id, String buyerEmail, long time, List<Product> products) {
         this.id = id;
         this.buyerEmail = buyerEmail;
@@ -37,6 +37,14 @@ public class Order {
 
     public List<Product> getProducts() {
         return products;
+    }
+    
+    public double getTotalAmount() {
+        double total = 0;
+        for (Product product : products) {
+            total += product.getPrice();
+        }
+        return total;
     }
 
 }
