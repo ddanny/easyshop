@@ -7,6 +7,7 @@
 
 
 `
+
     PUT /product
     {
       "name":"HP laptop",
