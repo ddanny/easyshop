@@ -6,7 +6,6 @@
 
 
 
-`
 
     PUT /product
     {
@@ -86,4 +85,3 @@
       "buyerEmail": "someemail@someserver.com",
       "time": 1544009795572
     }]
-`
