@@ -6,11 +6,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Product {
 
     private final long id;
-    
+
     private String name;
 
     private double price;
-    
+
     public Product(long id, String name, double price) {
         this.id = id;
         this.name = name;
@@ -24,11 +24,11 @@ public class Product {
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public double getPrice() {
         return price;
     }

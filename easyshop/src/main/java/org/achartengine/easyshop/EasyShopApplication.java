@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class EasyShopApplication {
     private static final Logger LOG = Logger.getLogger(EasyShopApplication.class.getName());
-    
+
     public static void main(String[] args) {
         SpringApplication.run(EasyShopApplication.class, args);
         LOG.info("EasyShop successfully started");

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class ProductService implements IProductService {
 
     private Map<Long, Product> products = Collections.synchronizedMap(new LinkedHashMap<Long, Product>());
-    
+
     public synchronized Collection<Product> getProducts() {
         return products.values();
     }
@@ -20,7 +20,7 @@ public class ProductService implements IProductService {
     public synchronized void addProduct(Product product) {
         products.put(product.getId(), product);
     }
-    
+
     public void updateProduct(long id, Product updatedProduct) {
         Product product = products.get(id);
         if (product != null) {
@@ -31,4 +31,8 @@ public class ProductService implements IProductService {
         }
     }
     
+    public Product findProduct(long id) {
+        return products.get(id);
+    }
+
 }

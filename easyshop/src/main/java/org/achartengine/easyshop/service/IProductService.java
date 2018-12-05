@@ -9,7 +9,8 @@ public interface IProductService {
     Collection<Product> getProducts();
 
     void addProduct(Product product);
-    
+
     void updateProduct(long id, Product product);
-    
+
+    Product findProduct(long id);
 }
