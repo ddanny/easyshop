@@ -6,7 +6,7 @@
 
 
 
-[code]
+`
 PUT /product
 {
   "name":"HP laptop",
@@ -85,4 +85,4 @@ GET /orders/1544009710000/1544009800000
   "buyerEmail": "someemail@someserver.com",
   "time": 1544009795572
 }]
-[/code]
+`
