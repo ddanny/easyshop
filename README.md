@@ -74,7 +74,8 @@
         "price": 109.99
       }],
       "buyerEmail": "someemail@someserver.com",
-      "time": 1544009713687
+      "time": 1544009713687,
+      "totalAmount": 1009.98
     }, {
       "id": 2,
       "products": [{
@@ -83,5 +84,8 @@
         "price": 849.99
       }],
       "buyerEmail": "someemail@someserver.com",
-      "time": 1544009795572
+      "time": 1544009795572,
+      "totalAmount": 849.99
     }]
+    
+    
