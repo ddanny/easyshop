@@ -7,7 +7,7 @@
 
 
 
-    PUT /product  // adds a new product
+    **PUT /product**  // adds a new product
     Payload: {
       "name":"HP laptop",
       "price":899.99
