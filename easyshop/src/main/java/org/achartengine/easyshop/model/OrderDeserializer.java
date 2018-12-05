@@ -14,11 +14,10 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
 
 public class OrderDeserializer extends StdDeserializer<Order> {
     private AtomicLong counter = new AtomicLong();
-    
+
     @Autowired
     private IProductService productService;
 
@@ -33,7 +32,8 @@ public class OrderDeserializer extends StdDeserializer<Order> {
     @Override
     public Order deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         JsonNode node = parser.getCodec().readTree(parser);
-        // TODO: post products instead of just IDs such as price changes not to update existing order changes
+        // TODO: post products instead of just IDs such as price changes not to update
+        // existing order changes
         ArrayNode productIds = (ArrayNode) node.get("productIds");
         List<Product> products = new ArrayList<>();
         for (int i = 0; i < productIds.size(); i++) {
