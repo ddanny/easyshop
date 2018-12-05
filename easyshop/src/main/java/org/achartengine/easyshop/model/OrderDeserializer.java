@@ -32,15 +32,14 @@ public class OrderDeserializer extends StdDeserializer<Order> {
     @Override
     public Order deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         JsonNode node = parser.getCodec().readTree(parser);
-        // TODO: post products instead of just IDs such as price changes not to update
-        // existing order changes
         ArrayNode productIds = (ArrayNode) node.get("productIds");
         List<Product> products = new ArrayList<>();
         for (int i = 0; i < productIds.size(); i++) {
             long productId = productIds.get(i).asLong();
             Product product = productService.findProduct(productId);
             if (product != null) {
-                products.add(product);
+                // create a new Product instance, such as price changes not to affect an existing order
+                products.add(new Product(product.getId(), product.getName(), product.getPrice()));
             }
         }
         String buyerEmail = node.get("buyerEmail").asText();
