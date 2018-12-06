@@ -50,6 +50,7 @@ public class OrderTest extends TestCase {
         orderService.placeOrder(new Order(IStorageService.NO_ID, "buyerEmail", 1000, orderProducts));
         assertEquals(1, orderService.getOrders(100, 1000).size());
         assertEquals(2, orderService.getAllOrders().get(1).getId());
+
         assertEquals(3, orderService.getNextId());
     }
 }
