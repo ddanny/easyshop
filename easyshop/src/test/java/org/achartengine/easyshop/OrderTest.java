@@ -43,5 +43,7 @@ public class OrderTest extends TestCase {
         assertEquals(1, orderService.getAllOrders().size());
         assertEquals(1, orderService.getOrders(0, 100).size());
         assertEquals(0, orderService.getOrders(100, 1000).size());
+        
+        assertEquals(2, orderService.getNextId());
     }
 }
