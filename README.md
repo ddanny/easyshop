@@ -1,11 +1,13 @@
 # easyshop
 
+ ## Getting started
+ 1. Clone this repository to a local drive.
+ 2. Under the easyshop directory, where the pom.xml file is located, run mvn clean install.
+ 3. Once the above step succeeds, cd to the target directory and run java -jar easyshop-0.1.0.jar
+ 4. You can now use Postman or other tools in order to call the available REST APIs, as described below.
 
 
-
-
-
-
+## REST API usage examples
 
     PUT /product  // adds a new product
     Payload: {
