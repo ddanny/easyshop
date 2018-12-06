@@ -30,6 +30,7 @@ public class ProductService implements IProductService {
                 addProduct(prod);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             LOG.warning("Could not load products " + e.getMessage());
         }
     }
@@ -39,14 +40,19 @@ public class ProductService implements IProductService {
     }
 
     public synchronized void addProduct(Product product) {
+        if (product.getId() == IStorageService.NO_ID) {
+            product.setId(getNextId());
+        }
         products.put(product.getId(), product);
     }
 
     public void updateProduct(long id, Product updatedProduct) {
         Product product = products.get(id);
         if (product != null) {
-            product.setName(updatedProduct.getName());
-            product.setPrice(updatedProduct.getPrice());
+            // create a new Product instance, such as price changes not to affect an
+            // existing order
+            Product newProduct = new Product(id, updatedProduct.getName(), updatedProduct.getPrice());
+            products.put(id, newProduct);
         } else {
             throw new RuntimeException("Unknown product");
         }
@@ -54,6 +60,10 @@ public class ProductService implements IProductService {
 
     public Product findProduct(long id) {
         return products.get(id);
+    }
+    
+    public synchronized long getNextId() {
+        return products.size() + 1;
     }
 
 }

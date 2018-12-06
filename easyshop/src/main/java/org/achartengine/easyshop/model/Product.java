@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(using = ProductDeserializer.class)
 public class Product {
 
-    private final long id;
+    private long id;
 
     private String name;
 
@@ -19,6 +19,10 @@ public class Product {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -6,6 +6,8 @@ import org.achartengine.easyshop.model.Order;
 import org.achartengine.easyshop.model.Product;
 
 public interface IStorageService {
+    
+    long NO_ID = -1;
 
     List<Product> loadProducts() throws Exception;
 

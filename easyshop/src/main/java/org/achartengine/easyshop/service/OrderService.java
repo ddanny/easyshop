@@ -26,7 +26,6 @@ public class OrderService implements IOrderService {
         try {
             orders.addAll(storageService.loadOrders());
         } catch (Exception e) {
-            e.printStackTrace();
             LOG.warning("Could not load orders " + e.getMessage());
         }
     }
@@ -47,12 +46,14 @@ public class OrderService implements IOrderService {
     }
 
     public synchronized void placeOrder(Order order) {
-        orders.add(order);
-        try {
-            storageService.saveOrders();
-        } catch (Exception e) {
-            LOG.warning("Could not save orders " + e.getMessage());
+        if (order.getId() == IStorageService.NO_ID) {
+            order.setId(getNextId());
         }
+        orders.add(order);
+    }
+    
+    public synchronized long getNextId() {
+        return orders.size() + 1;
     }
 
 }

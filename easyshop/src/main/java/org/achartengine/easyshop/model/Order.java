@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(using = OrderDeserializer.class)
 public class Order {
 
-    private final long id;
+    private long id;
 
     private final List<Product> products = new ArrayList<>();
 
@@ -25,6 +25,10 @@ public class Order {
 
     public long getId() {
         return id;
+    }
+    
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getBuyerEmail() {

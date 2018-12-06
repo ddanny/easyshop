@@ -13,4 +13,6 @@ public interface IOrderService {
 
     void placeOrder(Order order);
 
+    long getNextId();
+
 }

@@ -3,9 +3,9 @@ package org.achartengine.easyshop.model;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.achartengine.easyshop.service.IProductService;
+import org.achartengine.easyshop.service.IStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -17,8 +17,6 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 
 @SuppressWarnings("serial")
 public class OrderDeserializer extends StdDeserializer<Order> {
-    private AtomicLong counter = new AtomicLong();
-
     @Autowired
     private IProductService productService;
 
@@ -58,6 +56,6 @@ public class OrderDeserializer extends StdDeserializer<Order> {
             }
         }
         String buyerEmail = node.get("buyerEmail").asText();
-        return new Order(counter.incrementAndGet(), buyerEmail, System.currentTimeMillis(), products);
+        return new Order(IStorageService.NO_ID, buyerEmail, System.currentTimeMillis(), products);
     }
 }

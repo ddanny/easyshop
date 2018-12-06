@@ -13,4 +13,7 @@ public interface IProductService {
     void updateProduct(long id, Product product);
 
     Product findProduct(long id);
+    
+    long getNextId();
+
 }
