@@ -6,6 +6,7 @@
  3. Once the above step succeeds, cd to the target directory and run java -jar easyshop-0.1.0.jar
  4. You can now use Postman or other tools in order to call the available REST APIs, as described below.
 
+The project can also be imported in an IDE. I used Eclipse for development and testing.
 
 ## REST API usage examples
 
