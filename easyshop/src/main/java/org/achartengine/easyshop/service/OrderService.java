@@ -4,14 +4,32 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
 
 import org.achartengine.easyshop.model.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OrderService implements IOrderService {
+    private static final Logger LOG = Logger.getLogger(OrderService.class.getName());
+
+    @Autowired
+    private IStorageService storageService;
 
     private List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
+
+    @PostConstruct
+    public void init() {
+        try {
+            orders.addAll(storageService.loadOrders());
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOG.warning("Could not load orders " + e.getMessage());
+        }
+    }
 
     public synchronized Collection<Order> getOrders(long startDate, long stopDate) {
         List<Order> filteredOrders = new ArrayList<>();
@@ -24,8 +42,17 @@ public class OrderService implements IOrderService {
         return filteredOrders;
     }
 
+    public synchronized List<Order> getAllOrders() {
+        return orders;
+    }
+
     public synchronized void placeOrder(Order order) {
         orders.add(order);
+        try {
+            storageService.saveOrders();
+        } catch (Exception e) {
+            LOG.warning("Could not save orders " + e.getMessage());
+        }
     }
 
 }

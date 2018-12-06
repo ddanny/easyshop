@@ -1,6 +1,7 @@
 package org.achartengine.easyshop.controller;
 
 import java.util.Collection;
+import java.util.logging.Logger;
 
 import org.achartengine.easyshop.model.Order;
 import org.achartengine.easyshop.service.IOrderService;
@@ -15,12 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class OrderController {
+    private static final Logger LOG = Logger.getLogger(OrderController.class.getName());
+
     @Autowired
     private IOrderService orderService;
 
     @RequestMapping(method = RequestMethod.PUT, path = "/order")
     public ResponseEntity<?> placeOrder(@RequestBody Order order) {
         orderService.placeOrder(order);
+        LOG.info("New order placed");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

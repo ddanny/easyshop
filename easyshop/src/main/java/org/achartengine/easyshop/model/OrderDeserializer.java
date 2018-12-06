@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
+@SuppressWarnings("serial")
 public class OrderDeserializer extends StdDeserializer<Order> {
     private AtomicLong counter = new AtomicLong();
 
@@ -32,14 +33,28 @@ public class OrderDeserializer extends StdDeserializer<Order> {
     @Override
     public Order deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         JsonNode node = parser.getCodec().readTree(parser);
-        ArrayNode productIds = (ArrayNode) node.get("productIds");
         List<Product> products = new ArrayList<>();
-        for (int i = 0; i < productIds.size(); i++) {
-            long productId = productIds.get(i).asLong();
-            Product product = productService.findProduct(productId);
-            if (product != null) {
-                // create a new Product instance, such as price changes not to affect an existing order
-                products.add(new Product(product.getId(), product.getName(), product.getPrice()));
+        ArrayNode productIds = (ArrayNode) node.get("productIds");
+        if (productIds != null) {
+            // extracting from an order coming from the REST call
+            for (int i = 0; i < productIds.size(); i++) {
+                long productId = productIds.get(i).asLong();
+                Product product = productService.findProduct(productId);
+                if (product != null) {
+                    // create a new Product instance, such as price changes not to affect an
+                    // existing order
+                    products.add(new Product(product.getId(), product.getName(), product.getPrice()));
+                }
+            }
+        } else {
+            // extracting from an order read from file
+            ArrayNode prods = (ArrayNode) node.get("products");
+            for (int i = 0; i < prods.size(); i++) {
+                JsonNode productNode = prods.get(i);
+                long productId = productNode.get("id").asLong();
+                String name = productNode.get("name").asText();
+                double price = productNode.get("price").asDouble();
+                products.add(new Product(productId, name, price));
             }
         }
         String buyerEmail = node.get("buyerEmail").asText();
