@@ -7,6 +7,7 @@ import org.achartengine.easyshop.model.Order;
 import org.achartengine.easyshop.model.Product;
 import org.achartengine.easyshop.service.IOrderService;
 import org.achartengine.easyshop.service.IProductService;
+import org.achartengine.easyshop.service.IStorageService;
 import org.achartengine.easyshop.service.OrderService;
 import org.achartengine.easyshop.service.ProductService;
 
@@ -43,7 +44,12 @@ public class OrderTest extends TestCase {
         assertEquals(1, orderService.getAllOrders().size());
         assertEquals(1, orderService.getOrders(0, 100).size());
         assertEquals(0, orderService.getOrders(100, 1000).size());
-        
         assertEquals(2, orderService.getNextId());
+
+        orderProducts.add(productService.findProduct(2));
+        orderService.placeOrder(new Order(IStorageService.NO_ID, "buyerEmail", 1000, orderProducts));
+        assertEquals(1, orderService.getOrders(100, 1000).size());
+        assertEquals(2, orderService.getAllOrders().get(1).getId());
+        assertEquals(3, orderService.getNextId());
     }
 }
